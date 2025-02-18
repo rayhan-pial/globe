@@ -70,6 +70,23 @@
             font-weight: bold;
             color: #e76f51;
         }
+
+        .btn {
+            display: block;
+            margin-top: 10px;
+            padding: 8px;
+            text-align: center;
+            background-color: #2a9d8f;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #e76f51;
+        }
+
     </style>
 </head>
 <body>
@@ -78,7 +95,7 @@
     <!-- Search Form -->
     <div class="search-form">
         <form method="GET" action="{% url 'country_list' %}">
-            <input type="text" name="country" placeholder="Search for a country..." value="{{ search_query }}">
+            <input type="text" name="q" placeholder="Search for a country..." value="{{ search_query }}">
             <button type="submit">Search</button>
         </form>
     </div>
@@ -91,6 +108,7 @@
             <p><strong>Alpha3 Code:</strong> {{ country.alpha3_code }}</p>
             <p><strong>Region:</strong> <span class="region">{{ country.region }}</span></p>
             <p><strong>Capital:</strong> <span class="capital">{{ country.capital }}</span></p>
+            <a href="{% url 'country_details' country.id %}" class="btn">Details</a>  <!-- Details button -->
         </div>
         {% empty %}
         <p>No countries found matching your search criteria.</p>

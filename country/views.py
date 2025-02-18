@@ -47,3 +47,11 @@ class CountrydetailsView(APIView):
         else:
             countries = Country.objects.all()
         return render(request, 'country.html', {'countries': countries, 'search_query': search_query})
+
+
+class NeighbourCountry(APIView):
+    def get(self, request, country_id):
+        country = get_object_or_404(Country, id=country_id)
+        neighbors = Country.objects.filter(region=country.region).exclude(name=country)
+        return render(request, 'country_details.html', {'country': country, 'neighbors': neighbors})
+
