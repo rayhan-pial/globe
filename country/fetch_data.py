@@ -1,0 +1,30 @@
+import requests
+from .models import Country
+
+def fetch_and_store_data():
+    url = "https://api.countrylayer.com/v2/all?access_key=f02d12edf9a34d8e2d4b261c4f9076f2"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        countries = response.json()
+
+        for country  in countries:
+            country, created = Country.objects.update_or_create(
+                name=country ['name'],
+                defaults={
+                    'top_level_domain': country ['topLevelDomain'],
+                    'alpha2_code': country ['alpha2Code'],
+                    'alpha3_code': country ['alpha3Code'],
+                    'calling_codes': country ['callingCodes'],
+                    'capital': country ['capital'],
+                    'alt_spellings': country ['altSpellings'],
+                    'region': country ['region'],
+                }
+            )
+            if created:
+                print(f"Created new country: {country.name}")
+            else:
+                print(f"Country already exists: {country.name}")
+
+# Run the function to fetch and store the data
+fetch_and_store_data()
