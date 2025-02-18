@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import CountryViewSet,NeighbourCountryView,CountryNameView
+from .views import CountryViewSet,NeighbourCountryView,CountryNameView,CountrydetailsView
 
 # Create a router and register the viewset
 router = DefaultRouter()
@@ -10,4 +10,5 @@ urlpatterns = [
     path('country/', include(router.urls)),
     path('neighbor/<str:country>', NeighbourCountryView.as_view()),
     path('country-name/<str:country>', CountryNameView.as_view()),
+    path('all-country/', CountrydetailsView.as_view(),name='country_list'),
 ]

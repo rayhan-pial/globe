@@ -32,3 +32,18 @@ class CountryNameView(APIView):
         serializer = CountrySerializer(country,many=True)
         return Response(serializer.data)
 
+
+
+
+
+class CountrydetailsView(APIView):
+    def get(self, request):
+        # countries = Country.objects.all()
+        # return render(request, 'country.html', {'countries': countries})
+
+        search_query = request.GET.get('country', '')
+        if search_query:
+            countries = Country.objects.filter(name__icontains=search_query)
+        else:
+            countries = Country.objects.all()
+        return render(request, 'country.html', {'countries': countries, 'search_query': search_query})

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        .search-form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .search-form input {
+            padding: 10px;
+            width: 250px;
+            margin-right: 10px;
+            font-size: 1em;
+        }
+
+        .country-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .country-card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 250px;
+            margin: 15px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .country-card:hover {
+            transform: scale(1.05);
+        }
+
+        .country-card h2 {
+            font-size: 1.4em;
+            color: #2a2a2a;
+        }
+
+        .country-card p {
+            color: #555;
+        }
+
+        .country-card .capital {
+            font-weight: bold;
+            color: #2a9d8f;
+        }
+
+        .country-card .region {
+            font-weight: bold;
+            color: #e76f51;
+        }
+    </style>
+</head>
+<body>
+    <h1>List of Countries</h1>
+
+    <!-- Search Form -->
+    <div class="search-form">
+        <form method="GET" action="{% url 'country_list' %}">
+            <input type="text" name="country" placeholder="Search for a country..." value="{{ search_query }}">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <div class="country-container">
+        {% for country in countries %}
+        <div class="country-card">
+            <h2>{{ country.name }}</h2>
+            <p><strong>Alpha2 Code:</strong> {{ country.alpha2_code }}</p>
+            <p><strong>Alpha3 Code:</strong> {{ country.alpha3_code }}</p>
+            <p><strong>Region:</strong> <span class="region">{{ country.region }}</span></p>
+            <p><strong>Capital:</strong> <span class="capital">{{ country.capital }}</span></p>
+        </div>
+        {% empty %}
+        <p>No countries found matching your search criteria.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
