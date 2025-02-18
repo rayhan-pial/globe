@@ -23,5 +23,12 @@ class NeighbourCountryView(APIView):
         serializer = CountrySerializer(neighbors, many=True)
         return Response(serializer.data)
 
+class CountryNameView(APIView):
+    def get(self, request, country):
+        # country = get_object_or_404(Country, name__icontains=country)
+        country = Country.objects.filter(name__icontains=country)
 
+        # neighbors = Country.objects.filter(region=country.region).exclude(name=country)
+        serializer = CountrySerializer(country,many=True)
+        return Response(serializer.data)
 
