@@ -21,13 +21,21 @@ class CountryViewSet(viewsets.ModelViewSet):
     # filter_backends = (filters.DjangoFilterBackend,)
     # filterset_fields = ('name', 'region')
 
-class NeighbourCountryView(APIView):
+class RegionalCountryView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, country_id):
         country = get_object_or_404(Country, id=country_id)
         neighbors = Country.objects.filter(region=country.region).exclude(name=country)
         serializer = CountrySerializer(neighbors, many=True)
+        return Response(serializer.data)
+
+class LanguageCountryView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, language):
+        country = Country.objects.filter(language__icontains=language)
+        serializer = CountrySerializer(country, many=True)
         return Response(serializer.data)
 
 class CountryNameView(APIView):

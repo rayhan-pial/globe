@@ -10,20 +10,37 @@
     <div class="container mt-4">
         <h1 class="text-center text-dark">{{ country.name }} - Details</h1>
         <div class="card shadow-sm p-4">
+            <img src="{{ country.flag }}" alt="{{ country.name }} Flag" style="margin: auto" >
             <h2 class="card-title">{{ country.name }}</h2>
-            <p class="card-text"><strong>Alpha2 Code:</strong> {{ country.alpha2_code }}</p>
-            <p class="card-text"><strong>Alpha3 Code:</strong> {{ country.alpha3_code }}</p>
+            <p class="card-text"><strong>CCA2 Code:</strong> {{ country.cca2 }}</p>
             <p class="card-text"><strong>Capital:</strong> {{ country.capital }}</p>
+            <p class="card-text"><strong>Region:</strong> {{ country.region }}</p>
             <p class="card-text text-danger"><strong>Region:</strong> {{ country.region }}</p>
-
             <div class="mt-4">
                 <h3>Neighboring Countries:</h3>
                 {% if neighbors %}
                     <div class="row">
                         {% for neighbor in neighbors %}
                             <div class="col-md-4">
-                                <div class="card bg-light mb-2 p-2 text-center">{{ neighbor.name }}</div>
+                                <div class="card bg-light mb-2 p-2 text-center position-relative"
+                                    style="background-image: url('{{ neighbor.flag }}'); background-size: cover; background-position: center;">
+                                    <!-- Semi-transparent overlay -->
+                                    <div class="position-absolute top-0 start-0 w-100 h-100"
+                                        style="background: rgba(255, 255, 255, 0.7);"></div>
+                                    <!-- Content -->
+                                    <div class="position-relative">
+                                        <h2>{{ neighbor.name }}</h2>
+                                        <p class="card-text"><strong>Language:</strong> {{ neighbor.language }}</p>
+                                    </div>
+                                </div>
                             </div>
+                            {% comment %} <div class="col-md-4">
+                                <div class="card bg-light mb-2 p-2 text-center">
+                                    <h2>{{ neighbor.name }}</h2>
+                                    <p class="card-text"><strong>Language:</strong> {{ country.language }}</p>
+
+                                </div>
+                            </div> {% endcomment %}
                         {% endfor %}
                     </div>
                 {% else %}

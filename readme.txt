@@ -24,8 +24,10 @@ For Register : /user-api/register/
 Rest Representation
 
 For List And Create Countries              : /country-api/country/countries/
-For Retrieve, Update And Delete A Country  : /country-api/country/countries/<int:country_id>
-For Prtially Search By Country Name        : /country-api/country-name/<str:country>
+For Retrieve, Update And Delete A Country  : /country-api/country/countries/<int:country_id>/
+For Same Regional Countries                : /country-api/regional/<int:country_id>/
+For Same Language Countries                : /country-api/language/<str:language>/
+For Prtially Search By Country Name        : /country-api/country-name/<str:country>/
 
 Web Representation
 

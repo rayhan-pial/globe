@@ -12,22 +12,25 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <form method="GET" action="{% url 'country_list' %}" class="d-flex">
-                    <input type="text" name="q" class="form-control me-2" placeholder="Search for a country..." value="{{ search_query }}">
+                    <input type="text" name="country" class="form-control me-2" placeholder="Search for a country" >
                     <button type="submit" class="btn btn-primary">Search</button>
                 </form>
             </div>
         </div>
         <div class="row mt-4">
             {% for country in countries %}
-            <div class="col-md-4">
-                <div class="card shadow-sm mb-4">
-                    <div class="card-body">
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="ratio ratio-16x9">
+                        <img src="{{ country.flag }}" alt="{{ country.name }} Flag" class="card-img-top object-fit-cover">
+                    </div>
+                    <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{{ country.name }}</h5>
-                        <p class="card-text"><strong>Alpha2 Code:</strong> {{ country.alpha2_code }}</p>
-                        <p class="card-text"><strong>Alpha3 Code:</strong> {{ country.alpha3_code }}</p>
-                        <p class="card-text text-danger"><strong>Region:</strong> {{ country.region }}</p>
-                        <p class="card-text text-success"><strong>Capital:</strong> {{ country.capital }}</p>
-                        <a href="{% url 'country_details' country.id %}" class="btn btn-info">Details</a>
+                        <p class="card-text"><strong>Cca2:</strong> {{ country.cca2 }}</p>
+                        <p class="card-text"><strong>Capital:</strong> {{ country.capital }}</p>
+                        <p class="card-text text-success"><strong>Population:</strong> {{ country.population }}</p>
+                        <p class="card-text text-success"><strong>Timezone:</strong> {{ country.timezone }}</p>
+                        <a href="{% url 'country_details' country.id %}" class="btn btn-info mt-auto">Details</a>
                     </div>
                 </div>
             </div>
