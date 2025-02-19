@@ -4,112 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Country List</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-top: 20px;
-        }
-
-        .search-form {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .search-form input {
-            padding: 10px;
-            width: 250px;
-            margin-right: 10px;
-            font-size: 1em;
-        }
-
-        .country-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 30px;
-        }
-
-        .country-card {
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            width: 250px;
-            margin: 15px;
-            padding: 15px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-        }
-
-        .country-card:hover {
-            transform: scale(1.05);
-        }
-
-        .country-card h2 {
-            font-size: 1.4em;
-            color: #2a2a2a;
-        }
-
-        .country-card p {
-            color: #555;
-        }
-
-        .country-card .capital {
-            font-weight: bold;
-            color: #2a9d8f;
-        }
-
-        .country-card .region {
-            font-weight: bold;
-            color: #e76f51;
-        }
-
-        .btn {
-            display: block;
-            margin-top: 10px;
-            padding: 8px;
-            text-align: center;
-            background-color: #2a9d8f;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .btn:hover {
-            background-color: #e76f51;
-        }
-
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>List of Countries</h1>
-    <div class="search-form">
-        <form method="GET" action="{% url 'country_list' %}">
-            <input type="text" name="q" placeholder="Search for a country..." value="{{ search_query }}">
-            <button type="submit">Search</button>
-        </form>
-    </div>
-    <div class="country-container">
-        {% for country in countries %}
-        <div class="country-card">
-            <h2>{{ country.name }}</h2>
-            <p><strong>Alpha2 Code:</strong> {{ country.alpha2_code }}</p>
-            <p><strong>Alpha3 Code:</strong> {{ country.alpha3_code }}</p>
-            <p><strong>Region:</strong> <span class="region">{{ country.region }}</span></p>
-            <p><strong>Capital:</strong> <span class="capital">{{ country.capital }}</span></p>
-            <a href="{% url 'country_details' country.id %}" class="btn">Details</a>
+<body class="bg-light">
+    <div class="container mt-4">
+        <h1 class="text-center text-dark">List of Countries</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form method="GET" action="{% url 'country_list' %}" class="d-flex">
+                    <input type="text" name="q" class="form-control me-2" placeholder="Search for a country..." value="{{ search_query }}">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
         </div>
-        {% empty %}
-        <p>No countries found</p>
-        {% endfor %}
+        <div class="row mt-4">
+            {% for country in countries %}
+            <div class="col-md-4">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ country.name }}</h5>
+                        <p class="card-text"><strong>Alpha2 Code:</strong> {{ country.alpha2_code }}</p>
+                        <p class="card-text"><strong>Alpha3 Code:</strong> {{ country.alpha3_code }}</p>
+                        <p class="card-text text-danger"><strong>Region:</strong> {{ country.region }}</p>
+                        <p class="card-text text-success"><strong>Capital:</strong> {{ country.capital }}</p>
+                        <a href="{% url 'country_details' country.id %}" class="btn btn-info">Details</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">No countries found</p>
+            </div>
+            {% endfor %}
+        </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

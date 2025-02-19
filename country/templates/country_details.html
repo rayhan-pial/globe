@@ -4,85 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ country.name }} Details</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-top: 20px;
-        }
-
-        .country-details {
-            width: 80%;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .country-details h2 {
-            font-size: 1.8em;
-            color: #333;
-        }
-
-        .neighbor-list {
-            margin-top: 20px;
-        }
-
-        .neighbor-card {
-            background-color: #e9ecef;
-            margin: 5px;
-            padding: 10px;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-
-        .btn {
-            display: block;
-            margin-top: 20px;
-            padding: 8px;
-            text-align: center;
-            background-color: #2a9d8f;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .btn:hover {
-            background-color: #e76f51;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>{{ country.name }} - Details</h1>
+<body class="bg-light">
+    <div class="container mt-4">
+        <h1 class="text-center text-dark">{{ country.name }} - Details</h1>
+        <div class="card shadow-sm p-4">
+            <h2 class="card-title">{{ country.name }}</h2>
+            <p class="card-text"><strong>Alpha2 Code:</strong> {{ country.alpha2_code }}</p>
+            <p class="card-text"><strong>Alpha3 Code:</strong> {{ country.alpha3_code }}</p>
+            <p class="card-text"><strong>Capital:</strong> {{ country.capital }}</p>
+            <p class="card-text text-danger"><strong>Region:</strong> {{ country.region }}</p>
 
-    <div class="country-details">
-        <h2>{{ country.name }}</h2>
-        <p><strong>Alpha2 Code:</strong> {{ country.alpha2_code }}</p>
-        <p><strong>Alpha3 Code:</strong> {{ country.alpha3_code }}</p>
-        <p><strong>Capital:</strong> {{ country.capital }}</p>
-        <p><strong>Region:</strong> {{ country.region }}</p>
+            <div class="mt-4">
+                <h3>Neighboring Countries:</h3>
+                {% if neighbors %}
+                    <div class="row">
+                        {% for neighbor in neighbors %}
+                            <div class="col-md-4">
+                                <div class="card bg-light mb-2 p-2 text-center">{{ neighbor.name }}</div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-muted">No neighboring countries found.</p>
+                {% endif %}
+            </div>
 
-        <div class="neighbor-list">
-            <h3>Neighboring Countries:</h3>
-            {% if neighbors %}
-                {% for neighbor in neighbors %}
-                    <div class="neighbor-card">{{ neighbor.name }}</div>
-                {% endfor %}
-            {% else %}
-                <p>No neighboring countries found.</p>
-            {% endif %}
+            <a href="{% url 'country_list' %}" class="btn btn-primary mt-3">Back to Country List</a>
         </div>
-
-        <a href="{% url 'country_list' %}" class="btn">Back to Country List</a>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
