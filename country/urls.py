@@ -7,7 +7,7 @@ router.register(r'countries', CountryViewSet)
 
 urlpatterns = [
     path('country/', include(router.urls)),
-    path('neighbor/<str:country>', NeighbourCountryView.as_view()),
+    path('neighbor/<int:country_id>', NeighbourCountryView.as_view()),
     path('country-name/<str:country>', CountryNameView.as_view()),
 
     path('all-country/', CountrydetailsView.as_view(),name='country_list'),

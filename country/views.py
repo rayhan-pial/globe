@@ -24,8 +24,8 @@ class CountryViewSet(viewsets.ModelViewSet):
 class NeighbourCountryView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def get(self, request, country):
-        country = get_object_or_404(Country, name=country)
+    def get(self, request, country_id):
+        country = get_object_or_404(Country, id=country_id)
         neighbors = Country.objects.filter(region=country.region).exclude(name=country)
         serializer = CountrySerializer(neighbors, many=True)
         return Response(serializer.data)
@@ -62,7 +62,7 @@ class CountrydetailsView(APIView):
 
 class NeighbourCountry(APIView):
     permission_classes = [IsAuthenticated]
-    
+
     def get(self, request, country_id):
         country = get_object_or_404(Country, id=country_id)
         neighbors = Country.objects.filter(region=country.region).exclude(name=country)
