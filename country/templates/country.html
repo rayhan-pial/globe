@@ -91,15 +91,12 @@
 </head>
 <body>
     <h1>List of Countries</h1>
-
-    <!-- Search Form -->
     <div class="search-form">
         <form method="GET" action="{% url 'country_list' %}">
             <input type="text" name="q" placeholder="Search for a country..." value="{{ search_query }}">
             <button type="submit">Search</button>
         </form>
     </div>
-
     <div class="country-container">
         {% for country in countries %}
         <div class="country-card">
@@ -108,10 +105,10 @@
             <p><strong>Alpha3 Code:</strong> {{ country.alpha3_code }}</p>
             <p><strong>Region:</strong> <span class="region">{{ country.region }}</span></p>
             <p><strong>Capital:</strong> <span class="capital">{{ country.capital }}</span></p>
-            <a href="{% url 'country_details' country.id %}" class="btn">Details</a>  <!-- Details button -->
+            <a href="{% url 'country_details' country.id %}" class="btn">Details</a>
         </div>
         {% empty %}
-        <p>No countries found matching your search criteria.</p>
+        <p>No countries found</p>
         {% endfor %}
     </div>
 </body>

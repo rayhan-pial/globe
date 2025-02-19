@@ -26,5 +26,4 @@ def fetch_and_store_data():
             else:
                 print(f"Country already exists: {country.name}")
 
-# Run the function to fetch and store the data
 fetch_and_store_data()

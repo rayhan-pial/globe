@@ -1,22 +1,29 @@
 from django.shortcuts import render
 from . models import Country
 from . serializers import CountrySerializer
-# Create your views here.
-from rest_framework import viewsets, status
+from rest_framework import viewsets
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 
-from django_filters import rest_framework as filters
+
+# from django_filters import rest_framework as filters
+
+from django.shortcuts import render
 
 class CountryViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
     # filter_backends = (filters.DjangoFilterBackend,)
     # filterset_fields = ('name', 'region')
 
 class NeighbourCountryView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request, country):
         country = get_object_or_404(Country, name=country)
         neighbors = Country.objects.filter(region=country.region).exclude(name=country)
@@ -24,6 +31,8 @@ class NeighbourCountryView(APIView):
         return Response(serializer.data)
 
 class CountryNameView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request, country):
         # country = get_object_or_404(Country, name__icontains=country)
         country = Country.objects.filter(name__icontains=country)
@@ -35,8 +44,10 @@ class CountryNameView(APIView):
 
 
 
-
 class CountrydetailsView(APIView):
+
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
         # countries = Country.objects.all()
         # return render(request, 'country.html', {'countries': countries})
@@ -50,8 +61,14 @@ class CountrydetailsView(APIView):
 
 
 class NeighbourCountry(APIView):
+    permission_classes = [IsAuthenticated]
+    
     def get(self, request, country_id):
         country = get_object_or_404(Country, id=country_id)
         neighbors = Country.objects.filter(region=country.region).exclude(name=country)
         return render(request, 'country_details.html', {'country': country, 'neighbors': neighbors})
+
+
+
+
 
